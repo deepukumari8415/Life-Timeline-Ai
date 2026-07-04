@@ -12,20 +12,6 @@ body {
     position: relative;
 }
 
-/* ANIME CHARACTER */
-.anime-character {
-    position: absolute;
-    bottom: 0;
-    left: -250px;
-    width: 280px;
-    z-index: 1;
-    animation: walkIn 2.5s forwards;
-    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
-}
-@keyframes walkIn {
-    to { left: 30px; }
-}
-
 /* MAIN CONTAINER */
 .container {
     position: relative;
