@@ -4,105 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Life Timeline AI</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 30px;
-            border-radius: 20px;
-            width: 100%;
-            max-width: 500px;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-        }
-        h1 {
-            color: white;
-            text-align: center;
-            margin-bottom: 10px;
-            font-size: 28px;
-        }
-        .subtitle {
-            color: rgba(255,255,255,0.8);
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 14px;
-        }
-        input {
-            width: 100%;
-            padding: 15px;
-            margin-bottom: 15px;
-            border: none;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.9);
-            font-size: 16px;
-            outline: none;
-        }
-        button {
-            width: 100%;
-            padding: 15px;
-            background: #ff4b5c;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        button:hover {
-            background: #ff2e43;
-            transform: scale(1.02);
-        }
-        .timeline-box {
-            margin-top: 25px;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 20px;
-            border-radius: 15px;
-            color: white;
-        }
-        .timeline-box h2 {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-        .timeline-box p {
-            margin: 10px 0;
-            line-height: 1.6;
-        }
-        .coming-soon {
-            margin-top: 20px;
-            text-align: center;
-            color: rgba(255,255,255,0.7);
-            border: 2px dashed rgba(255,255,255,0.3);
-            padding: 15px;
-            border-radius: 12px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- ANIME BOY - Ye field ko dhakel ke layega -->
+    <img src="https://i.imgur.com/8Km9tLL.png" class="anime-character" alt="Anime Assistant">
+
     <div class="container">
         <h1>🌟 Life Timeline AI 🌟</h1>
-        <p class="subtitle">Enter your details and let AI predict your future</p>
+        <p class="subtitle">Let your AI Assistant build your future</p>
         
-        <input type="date" id="dob" required>
-        <input type="text" id="milestone" placeholder="Enter Your Goal - 10th Pass, Job, Startup" required>
+        <div class="field-wrapper">
+            <input type="date" id="dob" required>
+        </div>
+        <div class="field-wrapper">
+            <input type="text" id="milestone" placeholder="Enter Your Goal - 10th Pass, Job, Startup" required>
+        </div>
         
-        <button id="generateBtn">Generate Timeline</button>
+        <button id="generateBtn">Generate Timeline ✨</button>
         
         <div id="result"></div>
-
-        <div class="coming-soon">
-            🚀 Coming Soon<br>
-            "Ask AI Anything" - Chat with AI about your career
-        </div>
     </div>
 
     <script src="script.js"></script>
