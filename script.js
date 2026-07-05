@@ -1,4 +1,3 @@
-alert("js chal rahi hai")
 document.addEventListener('DOMContentLoaded', function() {
 
 document.getElementById('goal').addEventListener('change', function(){
@@ -106,4 +105,4 @@ ${getMotivation(goal, stream, branch)}`;
   resultBox.innerText = result;
   resultBox.style.display = 'block';
 }
-});//<--
+});
