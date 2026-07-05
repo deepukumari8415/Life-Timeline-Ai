@@ -1,53 +1,66 @@
-document.getElementById('generateBtn').addEventListener('click', () => {
-    const dob = document.getElementById('dob').value;
-    const milestone = document.getElementById('milestone').value;
-    const resultDiv = document.getElementById('result');
-
-    if (!dob || !milestone) {
-        alert("Please enter both Date of Birth and Milestone");
-        return;
-    }
-
-    // Button pe loading effect
-    const btn = document.getElementById('generateBtn');
-    btn.innerText = "Generating... ✨";
-    btn.disabled = true;
-
-    setTimeout(() => {
-        // AI Logic - Smart Predictions
-        let prediction = "";
-        let motivation = "";
-        const currentYear = new Date().getFullYear();
-
-        if(milestone.toLowerCase().includes("10")) {
-            prediction = `By ${currentYear + 1}: Complete 12th with good marks. By ${currentYear + 5}: Graduate from College. By ${currentYear + 7}: Start your career and become independent.`;
-            motivation = "The future belongs to those who prepare for it today. Keep learning and stay focused!";
-        } else if(milestone.toLowerCase().includes("12")) {
-            prediction = `By ${currentYear + 3}: Complete Graduation. By ${currentYear + 5}: Get your first job or start preparing for higher studies.`;
-            motivation = "12th is just the beginning. Your real journey starts now. Aim high!";
-        } else if(milestone.toLowerCase().includes("startup")) {
-            prediction = `By ${currentYear + 1}: Learn skills & make a plan. By ${currentYear + 3}: Launch your MVP. By ${currentYear + 5}: Scale your startup and build a team.`;
-            motivation = "Every big company started small. Your journey starts with one step. Believe in yourself!";
-        } else if(milestone.toLowerCase().includes("job")) {
-            prediction = `By ${currentYear + 1}: Learn required skills. By ${currentYear + 2}: Apply and crack interviews. By ${currentYear + 3}: Get promoted to next level.`;
-            motivation = "Consistency is the key to success. Work hard and opportunities will come to you.";
-        } else {
-            prediction = `Based on "${milestone}", set small goals for next 2 years. Stay consistent and you will achieve it by ${currentYear + 3}.`;
-            motivation = "Success is not final, failure is not fatal. It is the courage to continue that counts.";
-        }
-
-        resultDiv.innerHTML = `
-            <div class="timeline-box">
-                <h2>🌟 Your AI Timeline 🌟</h2>
-                <p><b>Date of Birth:</b> ${dob}</p>
-                <p><b>Your Goal:</b> ${milestone}</p>
-                <p><b>AI Prediction:</b> ${prediction}</p>
-                <p><b>Motivation:</b> "${motivation}"</p>
-            </div>
-        `;
-
-        btn.innerText = "Generate Timeline ✨";
-        btn.disabled = false;
-
-    }, 1000); // 1 second loading effect
+document.getElementById('course').addEventListener('change', function(){
+  let val = this.value;
+  document.getElementById('streamBox').style.display = (val == '11th' || val == '12th') ? 'block' : 'none';
+  document.getElementById('extraBox').style.display = (val == 'btech' || val == 'ba' || val == 'bsc') ? 'block' : 'none';
 });
+
+function generateTimeline(){
+  let dob = document.getElementById('dob').value;
+  let course = document.getElementById('course').value;
+  let currentYear = parseInt(document.getElementById('currentYear').value) || 0;
+  let stream = document.getElementById('stream').value;
+  let resultBox = document.getElementById('resultBox');
+  let currentYr = new Date().getFullYear();
+  let result = "";
+
+  if(!course){
+    alert("Please select a course first!");
+    return;
+  }
+
+  if(course == 'btech'){
+    let yearsLeft = 4 - currentYear;
+    let passYear = currentYr + yearsLeft;
+    result = `🎓 You are currently in ${currentYear} year of B.Tech.
+👉 You will graduate in ${passYear}.
+👉 Suggestion: Start Coding + Internship + Placement prep from now. Make your final year project strong.`;
+  }
+  else if(course == 'ba'){
+    let yearsLeft = 3 - currentYear;
+    let passYear = currentYr + yearsLeft;
+    result = `📚 You are currently in ${currentYear} year of BA.
+👉 You will graduate in ${passYear}.
+👉 Suggestion: Try UPSC, SSC, Teaching, Content Writing.`;
+  }
+  else if(course == 'bsc'){
+    let yearsLeft = 3 - currentYear;
+    let passYear = currentYr + yearsLeft;
+    result = `🔬 You are currently in ${currentYear} year of BSc.
+👉 You will graduate in ${passYear}.
+👉 Suggestion: Go for MSc, Research, Lab jobs, or IT jobs.`;
+  }
+  else if(course == '11th' || course == '12th'){
+    if(stream == 'science'){
+      result = `🚀 You chose Science Stream.
+👉 Career Options: Doctor, Engineer, Pilot, IT
+👉 Tip: Start JEE/NEET preparation now.`;
+    }
+    else if(stream == 'arts'){
+      result = `🎨 You chose Arts Stream.
+👉 Career Options: UPSC, Law, Psychology, Journalism
+👉 Tip: Improve GK and Writing skills.`;
+    }
+    else if(stream == 'commerce'){
+      result = `💰 You chose Commerce Stream.
+👉 Career Options: CA, BBA, Banking, Marketing
+👉 Tip: Focus on Accounts and Maths.`;
+    }
+  }
+  else if(course == '10th'){
+    result = `✨ After 10th you have 3 paths: Science, Arts, Commerce.
+Choose wisely based on your interest!`;
+  }
+
+  resultBox.innerText = result;
+  resultBox.style.display = 'block';
+}
