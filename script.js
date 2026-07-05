@@ -1,3 +1,5 @@
+document.addEventListener('DOMContentLoaded', function() {
+
 document.getElementById('goal').addEventListener('change', function(){
   let val = this.value;
   document.getElementById('streamBox').classList.add('hidden');
@@ -39,10 +41,10 @@ function getMotivation(goal, stream, branch){
 function generateTimeline(){
   let dob = document.getElementById('dob').value;
   let goal = document.getElementById('goal').value;
-  let stream = document.getElementById('stream').value;
-  let branch = document.getElementById('branch').value;
+  let stream = document.getElementById('stream')?.value;
+  let branch = document.getElementById('branch')?.value;
   let diplomaType = document.getElementById('diplomaType')?.value;
-  let currentYear = parseInt(document.getElementById('currentYear').value) || 0;
+  let currentYear = parseInt(document.getElementById('currentYear')?.value) || 0;
   let resultBox = document.getElementById('resultBox');
   let currentYr = new Date().getFullYear();
 
