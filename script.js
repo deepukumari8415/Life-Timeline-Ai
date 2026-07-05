@@ -1,66 +1,90 @@
-document.getElementById('course').addEventListener('change', function(){
-  let val = this.value;
-  document.getElementById('streamBox').style.display = (val == '11th' || val == '12th') ? 'block' : 'none';
-  document.getElementById('extraBox').style.display = (val == 'btech' || val == 'ba' || val == 'bsc') ? 'block' : 'none';
-});
-
-function generateTimeline(){
-  let dob = document.getElementById('dob').value;
-  let course = document.getElementById('course').value;
-  let currentYear = parseInt(document.getElementById('currentYear').value) || 0;
-  let stream = document.getElementById('stream').value;
-  let resultBox = document.getElementById('resultBox');
-  let currentYr = new Date().getFullYear();
-  let result = "";
-
-  if(!course){
-    alert("Please select a course first!");
-    return;
-  }
-
-  if(course == 'btech'){
-    let yearsLeft = 4 - currentYear;
-    let passYear = currentYr + yearsLeft;
-    result = `🎓 You are currently in ${currentYear} year of B.Tech.
-👉 You will graduate in ${passYear}.
-👉 Suggestion: Start Coding + Internship + Placement prep from now. Make your final year project strong.`;
-  }
-  else if(course == 'ba'){
-    let yearsLeft = 3 - currentYear;
-    let passYear = currentYr + yearsLeft;
-    result = `📚 You are currently in ${currentYear} year of BA.
-👉 You will graduate in ${passYear}.
-👉 Suggestion: Try UPSC, SSC, Teaching, Content Writing.`;
-  }
-  else if(course == 'bsc'){
-    let yearsLeft = 3 - currentYear;
-    let passYear = currentYr + yearsLeft;
-    result = `🔬 You are currently in ${currentYear} year of BSc.
-👉 You will graduate in ${passYear}.
-👉 Suggestion: Go for MSc, Research, Lab jobs, or IT jobs.`;
-  }
-  else if(course == '11th' || course == '12th'){
-    if(stream == 'science'){
-      result = `🚀 You chose Science Stream.
-👉 Career Options: Doctor, Engineer, Pilot, IT
-👉 Tip: Start JEE/NEET preparation now.`;
-    }
-    else if(stream == 'arts'){
-      result = `🎨 You chose Arts Stream.
-👉 Career Options: UPSC, Law, Psychology, Journalism
-👉 Tip: Improve GK and Writing skills.`;
-    }
-    else if(stream == 'commerce'){
-      result = `💰 You chose Commerce Stream.
-👉 Career Options: CA, BBA, Banking, Marketing
-👉 Tip: Focus on Accounts and Maths.`;
-    }
-  }
-  else if(course == '10th'){
-    result = `✨ After 10th you have 3 paths: Science, Arts, Commerce.
-Choose wisely based on your interest!`;
-  }
-
-  resultBox.innerText = result;
-  resultBox.style.display = 'block';
+*{font-family: 'Poppins', sans-serif; box-sizing: border-box;}
+body {
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
 }
+
+/* ANIME INTRO */
+.intro-screen {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, #0f0c29, #302b63);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation: fadeOut 1s ease 4s forwards;
+}
+.intro-boy {
+  width: 200px;
+  animation: walkAndPose 3s ease forwards;
+}
+.intro-text {
+  color: #00d4ff;
+  font-size: 22px;
+  font-weight: 600;
+  margin-top: 20px;
+  opacity: 0;
+  animation: showText 1s ease 2.5s forwards;
+  text-shadow: 0 0 10px #00d4ff;
+}
+@keyframes walkAndPose {
+ 0% { transform: translateX(-500px); }
+ 60% { transform: translateX(0) scale(1.1); }
+ 100% { transform: translateX(0) scale(1); }
+}
+@keyframes showText { to { opacity: 1; } }
+@keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
+
+/* MAIN BOX */
+.container {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(15px);
+  padding: 30px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 0 30px #8a2be2;
+  width: 90%;
+  max-width: 450px;
+}
+h1 {text-align: center; color: #00d4ff;}
+label {display: block; margin-top: 15px; font-weight: 600;}
+input, select, button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  border-radius: 10px;
+  border: 1px solid #8a2be2;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  outline: none;
+}
+button {
+  background: linear-gradient(90deg, #8a2be2, #00d4ff);
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: 0.3s;
+}
+button:hover {
+  box-shadow: 0 0 15px #00d4ff;
+  transform: scale(1.05);
+}
+#resultBox {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(0,212,255,0.1);
+  border-radius: 10px;
+  border-left: 4px solid #00d4ff;
+  white-space: pre-line;
+  display: none;
+}
+.hidden { display: none; }
