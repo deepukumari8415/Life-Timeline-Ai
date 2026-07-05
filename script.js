@@ -1,395 +1,368 @@
-/* =========================
-   GOOGLE FONT
-========================= */
+// ================================
+// LIFE TIMELINE AI
+// Part 1
+// ================================
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
+document.addEventListener("DOMContentLoaded", () => {
+
+const goal = document.getElementById("goal");
+const streamBox = document.getElementById("streamBox");
+const branchBox = document.getElementById("branchBox");
+const diplomaTypeBox = document.getElementById("diplomaTypeBox");
+const yearBox = document.getElementById("yearBox");
+
+goal.addEventListener("change", function(){
+
+streamBox.classList.add("hidden");
+branchBox.classList.add("hidden");
+diplomaTypeBox.classList.add("hidden");
+yearBox.classList.add("hidden");
+
+let value = this.value;
+
+if(value==="11th" || value==="12th"){
+streamBox.classList.remove("hidden");
 }
 
-body{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:30px;
-    overflow-x:hidden;
-    background:linear-gradient(-45deg,#0f172a,#1e3a8a,#2563eb,#06b6d4);
-    background-size:400% 400%;
-    animation:bgMove 12s ease infinite;
+if(value==="diploma"){
+branchBox.classList.remove("hidden");
+diplomaTypeBox.classList.remove("hidden");
+yearBox.classList.remove("hidden");
 }
 
-/* Animated Background */
-
-@keyframes bgMove{
-
-0%{
-background-position:0% 50%;
+if(
+value==="btech" ||
+value==="bca" ||
+value==="bba" ||
+value==="bcom" ||
+value==="ba" ||
+value==="bsc"
+){
+branchBox.classList.remove("hidden");
+yearBox.classList.remove("hidden");
 }
 
-50%{
-background-position:100% 50%;
-}
+});
 
-100%{
-background-position:0% 50%;
-}
+});
 
-}
+// ================================
+// Motivation Quotes
+// ================================
 
-/* Floating Background */
+function getMotivation(goal, stream, branch){
 
-.background{
-position:fixed;
-width:100%;
-height:100%;
-left:0;
-top:0;
-z-index:-1;
-overflow:hidden;
-}
+const quotes={
 
-.background::before,
-.background::after{
+science:"🚀 Dream big. Science can change the world.",
 
-content:"";
+commerce:"💰 Learn money, business and finance. Success will follow.",
 
-position:absolute;
+arts:"🎨 Creativity is your biggest superpower.",
 
-width:350px;
-height:350px;
+cs:"💻 Coding today creates tomorrow.",
 
-border-radius:50%;
+it:"🌐 Technology never sleeps. Keep learning.",
 
-filter:blur(120px);
+me:"⚙️ Mechanical engineers build machines that move the world.",
 
-opacity:.45;
+ce:"🏗️ Civil engineers build the future.",
 
-}
+ee:"⚡ Electricity powers modern civilization.",
 
-.background::before{
+management:"📈 Great leaders create great companies.",
 
-background:#00e5ff;
+accounts:"📊 Numbers tell stories. Learn them well.",
 
-top:-100px;
+default:"✨ Stay consistent. Your future depends on today's efforts."
 
-left:-80px;
+};
+
+return quotes[branch] || quotes[stream] || quotes.default;
 
 }
+// ================================
+// Generate Timeline
+// Part 2
+// ================================
 
-.background::after{
+function generateTimeline(){
 
-background:#7c3aed;
+const dob=document.getElementById("dob").value;
+const goal=document.getElementById("goal").value;
+const stream=document.getElementById("stream").value;
+const branch=document.getElementById("branch").value;
+const diplomaType=document.getElementById("diplomaType").value;
+const currentYear=parseInt(document.getElementById("currentYear").value)||1;
+const resultBox=document.getElementById("resultBox");
 
-bottom:-100px;
-
-right:-80px;
-
+if(dob==="" || goal===""){
+alert("Please enter DOB and select your course.");
+return;
 }
 
-/* Main Card */
+const today=new Date();
+const birth=new Date(dob);
 
-.container{
+let age=today.getFullYear()-birth.getFullYear();
 
-width:100%;
-max-width:700px;
+const month=today.getMonth()-birth.getMonth();
 
-background:rgba(255,255,255,.12);
-
-backdrop-filter:blur(18px);
-
-border:1px solid rgba(255,255,255,.18);
-
-border-radius:25px;
-
-padding:35px;
-
-box-shadow:0 15px 40px rgba(0,0,0,.25);
-
-animation:cardUp 1s ease;
-
+if(month<0 || (month===0 && today.getDate()<birth.getDate())){
+age--;
 }
 
-@keyframes cardUp{
+const duration={
 
-from{
+diploma:diplomaType==="after12"?2:3,
 
-opacity:0;
+btech:4,
 
-transform:translateY(50px);
+bca:3,
 
-}
+bba:3,
 
-to{
+bcom:3,
 
-opacity:1;
+ba:3,
 
-transform:translateY(0);
+bsc:3
 
-}
+};
 
-}
+let result="";
 
-h1{
+let passYear=today.getFullYear();
 
-text-align:center;
+let graduationAge=age;
 
-color:#fff;
+if(goal==="10th"){
 
-font-size:34px;
+result+=
+`👤 Current Age : ${age} Years
 
-margin-bottom:10px;
+🎓 Current Class : 10th
 
-}
+➡️ Next Step :
+Choose Science, Commerce or Arts carefully.
 
-.subtitle{
-
-text-align:center;
-
-color:#f1f5f9;
-
-margin-bottom:30px;
-
-font-size:15px;
-
-letter-spacing:.5px;
+`;
 
 }
 
-/* Labels */
+else if(goal==="11th" || goal==="12th"){
 
-label{
+passYear=today.getFullYear()+(12-parseInt(goal));
 
-display:block;
+graduationAge=age+(12-parseInt(goal));
 
-margin-top:18px;
+result+=
+`👤 Current Age : ${age} Years
 
-margin-bottom:8px;
+📚 Current Class : ${goal}
 
-color:#fff;
+🎯 Stream : ${stream.toUpperCase()}
 
-font-weight:600;
+📅 12th Passing Year : ${passYear}
 
-font-size:15px;
-
-}
-
-/* Inputs */
-
-input,
-select{
-
-width:100%;
-
-padding:14px;
-
-border:none;
-
-outline:none;
-
-border-radius:12px;
-
-background:rgba(255,255,255,.18);
-
-color:white;
-
-font-size:15px;
-
-transition:.3s;
+`;
 
 }
 
-input::placeholder{
+else{
 
-color:#ddd;
+const totalYears=duration[goal];
 
-}
+if(currentYear>totalYears){
 
-input:focus,
-select:focus{
+alert("Current year is invalid.");
 
-background:rgba(255,255,255,.25);
-
-transform:scale(1.02);
+return;
 
 }
 
-.hidden{
+const left=totalYears-currentYear;
 
-display:none;
+passYear=today.getFullYear()+left;
+
+graduationAge=age+left;
+
+result+=
+`👤 Current Age : ${age} Years
+
+🎓 Course : ${goal.toUpperCase()}
+
+🏷️ Branch : ${branch.toUpperCase()}
+
+📖 Current Year : ${currentYear}
+
+🎉 Graduation Year : ${passYear}
+
+🎂 Graduation Age : ${graduationAge}
+
+`;
 
 }
-/* =========================
-   BUTTON
-========================= */
+   // ================================
+// Career Prediction + Result
+// Part 3 (Final)
+// ================================
 
-button{
-    width:100%;
-    margin-top:30px;
-    padding:16px;
-    border:none;
-    border-radius:14px;
-    font-size:17px;
-    font-weight:600;
-    cursor:pointer;
-    color:#fff;
-    background:linear-gradient(135deg,#2563eb,#7c3aed);
-    transition:0.3s;
-    box-shadow:0 10px 25px rgba(0,0,0,0.25);
-}
+if(goal==="btech"){
 
-button:hover{
-    transform:translateY(-3px) scale(1.02);
-    box-shadow:0 18px 35px rgba(0,0,0,0.35);
-}
+result+=`💼 Career Options:
+• Software Engineer
+• Data Scientist
+• AI Engineer
+• Cloud Engineer
+• Cyber Security Engineer
 
-button:active{
-    transform:scale(0.98);
-}
+💰 Estimated Starting Salary:
+₹4 LPA – ₹12 LPA
 
-/* =========================
-   RESULT BOX
-========================= */
+📚 Skills To Learn:
+✔ DSA
+✔ Web Development
+✔ Python
+✔ SQL
+✔ Communication Skills
 
-#resultBox{
-    display:none;
-    margin-top:30px;
-    padding:22px;
-    border-radius:18px;
-    background:rgba(255,255,255,0.15);
-    border:1px solid rgba(255,255,255,0.2);
-    color:#fff;
-    font-size:15px;
-    line-height:1.8;
-    white-space:pre-line;
-    animation:fadeIn 0.7s ease;
-    box-shadow:0 10px 30px rgba(0,0,0,0.2);
-}
-
-/* =========================
-   ANIMATION
-========================= */
-
-@keyframes fadeIn{
-
-from{
-opacity:0;
-transform:translateY(25px);
-}
-
-to{
-opacity:1;
-transform:translateY(0);
-}
+`;
 
 }
 
-/* =========================
-   SCROLLBAR
-========================= */
+else if(goal==="bca"){
 
-::-webkit-scrollbar{
-    width:8px;
-}
+result+=`💼 Career Options:
+• Software Developer
+• Web Developer
+• App Developer
+• QA Engineer
 
-::-webkit-scrollbar-thumb{
-    background:#6d28d9;
-    border-radius:20px;
-}
+💰 Estimated Starting Salary:
+₹3 LPA – ₹8 LPA
 
-::-webkit-scrollbar-track{
-    background:#0f172a;
-}
+📚 Skills:
+✔ HTML
+✔ CSS
+✔ JavaScript
+✔ React
+✔ Node.js
 
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:768px){
-
-.container{
-
-padding:25px;
+`;
 
 }
 
-h1{
+else if(goal==="bba" || goal==="bcom"){
 
-font-size:28px;
+result+=`💼 Career Options:
+• Business Analyst
+• Marketing Executive
+• HR
+• Finance Executive
+• Sales Manager
 
-}
+💰 Estimated Salary:
+₹3 LPA – ₹7 LPA
 
-.subtitle{
+📚 Skills:
+✔ Excel
+✔ Communication
+✔ Digital Marketing
+✔ Finance Basics
 
-font-size:14px;
-
-}
-
-label{
-
-font-size:14px;
-
-}
-
-input,
-select{
-
-font-size:14px;
-
-padding:12px;
+`;
 
 }
 
-button{
+else if(goal==="ba" || goal==="bsc"){
 
-font-size:15px;
+result+=`💼 Career Options:
+• Government Jobs
+• Teacher
+• Research
+• UPSC
+• Banking
 
-padding:14px;
+💰 Estimated Salary:
+₹3 LPA – ₹8 LPA
 
-}
-
-#resultBox{
-
-font-size:14px;
-
-padding:18px;
-
-}
+`;
 
 }
 
-/* =========================
-   SMALL MOBILE
-========================= */
+else if(goal==="diploma"){
 
-@media(max-width:480px){
+result+=`💼 Career Options:
+• Junior Engineer
+• Technician
+• Site Engineer
+• Production Engineer
 
-body{
+💰 Estimated Salary:
+₹2.5 LPA – ₹6 LPA
 
-padding:15px;
-
-}
-
-.container{
-
-padding:18px;
-
-border-radius:18px;
+`;
 
 }
 
-h1{
+else if(goal==="11th" || goal==="12th"){
 
-font-size:24px;
+result+=`📚 Focus On:
+✔ Strong Basics
+✔ Competitive Exams
+✔ Communication
+✔ Daily Practice
+
+`;
 
 }
 
-.subtitle{
+else{
 
-font-size:13px;
+result+=`📚 Work Hard.
+Your future starts from today.
+
+`;
 
 }
+
+// Motivation
+
+result+=`
+
+🔥 Motivation
+
+${getMotivation(goal,stream,branch)}
+
+-----------------------------------
+
+🚀 AI Recommendation
+
+✔ Build Projects
+
+✔ Learn New Skills
+
+✔ Improve English
+
+✔ Create LinkedIn Profile
+
+✔ Do Internships
+
+✔ Stay Consistent
+
+⭐ Success comes with consistency, not shortcuts.
+
+`;
+
+resultBox.innerText=result;
+
+resultBox.style.display="block";
+
+resultBox.scrollIntoView({
+
+behavior:"smooth"
+
+});
 
 }
