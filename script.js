@@ -1,3 +1,7 @@
+function generateTimeline(){
+  alert("Button Clicked!"); // <-- YE LINE
+  let dob = document.getElementById('dob').value;
+  ...
 document.addEventListener('DOMContentLoaded', function() {
 
 document.getElementById('goal').addEventListener('change', function(){
