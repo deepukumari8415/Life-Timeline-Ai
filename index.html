@@ -1,59 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Life Timeline AI</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life Timeline AI</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-<!-- ANIME INTRO -->
-<div class="intro-screen">
-  <img src="boy.png" class="intro-boy" alt="boy">
-  <h2 class="intro-text">Let me build your Future... ✨</h2>
-</div>
+<div class="background"></div>
 
-<!-- MAIN FORM -->
 <div class="container">
-  <h1>Life Timeline AI 🌟</h1>
-  
-  <label>Enter Your DOB:</label>
-  <input type="date" id="dob">
 
-  <label>Select Your Course:</label>
-  <select id="course">
-    <option value="">--Choose--</option>
-    <option value="10th">10th</option>
-    <option value="11th">11th</option>
-    <option value="12th">12th</option>
-    <option value="btech">B.Tech - 4 Years</option>
-    <option value="ba">BA - 3 Years</option>
-    <option value="bsc">BSc - 3 Years</option>
-    <option value="diploma">Diploma - 3 Years</option>
-    <option  value="bba">BBA - 3 Years</option>
-    <option value="bca">BCA - 3 Years</option>
-    <option value="bcom">B.Com - 3 Years</option>
-  </select>
+    <h1>🌟 Life Timeline AI</h1>
+    <p class="subtitle">
+        Predict Your Career Roadmap with AI
+    </p>
 
-  <div id="streamBox" class="hidden">
-    <label>Choose Your Stream:</label>
-    <select id="stream">
-      <option value="arts">Arts</option>
-      <option value="science">Science</option>
-      <option value="commerce">Commerce</option>
+    <!-- DOB -->
+
+    <label>Date of Birth</label>
+
+    <input
+        type="date"
+        id="dob"
+    >
+
+    <!-- Course -->
+
+    <label>Select Current Course</label>
+
+    <select id="goal">
+
+        <option value="">Choose Course</option>
+
+        <option value="10th">10th</option>
+
+        <option value="11th">11th</option>
+
+        <option value="12th">12th</option>
+
+        <option value="diploma">Diploma</option>
+
+        <option value="btech">B.Tech</option>
+
+        <option value="bca">BCA</option>
+
+        <option value="bba">BBA</option>
+
+        <option value="bcom">B.Com</option>
+
+        <option value="bsc">B.Sc</option>
+
+        <option value="ba">BA</option>
+
     </select>
-  </div>
 
-  <div id="extraBox" class="hidden">
-    <label>Which year are you in now? Ex: 1, 2, 3,4,5,6,</label>
-    <input type="number" id="currentYear" placeholder="1, 2, 3, 4,5,6">
-  </div>
+    <!-- STREAM -->
 
-  <button onclick="generateTimeline()">Predict My Future</button>
-  <div id="resultBox"></div>
+    <div id="streamBox" class="hidden">
+
+        <label>Select Stream</label>
+
+        <select id="stream">
+
+            <option value="science">Science</option>
+
+            <option value="commerce">Commerce</option>
+
+            <option value="arts">Arts</option>
+
+        </select>
+
+    </div>
+
+    <!-- BRANCH -->
+
+    <div id="branchBox" class="hidden">
+
+        <label>Select Branch</label>
+
+        <select id="branch">
+
+            <option value="cs">Computer Science</option>
+
+            <option value="it">Information Technology</option>
+
+            <option value="me">Mechanical</option>
+
+            <option value="ce">Civil</option>
+
+            <option value="ee">Electrical</option>
+
+            <option value="management">Management</option>
+
+            <option value="accounts">Accounts</option>
+
+        </select>
+
+    </div>
+
+    <!-- DIPLOMA TYPE -->
+
+    <div id="diplomaTypeBox" class="hidden">
+
+        <label>Diploma After</label>
+
+        <select id="diplomaType">
+
+            <option value="after10">After 10th</option>
+
+            <option value="after12">After 12th</option>
+
+        </select>
+
+    </div>
+
+    <!-- CURRENT YEAR -->
+
+    <div id="yearBox" class="hidden">
+
+        <label>Current Year</label>
+
+        <input
+            type="number"
+            id="currentYear"
+            min="1"
+            max="4"
+            placeholder="Enter Current Year">
+
+    </div>
+
+    <!-- BUTTON -->
+
+    <button onclick="generateTimeline()">
+
+        🚀 Predict My Future
+
+    </button>
+
+    <!-- RESULT -->
+
+    <div id="resultBox"></div>
+
 </div>
 
 <script src="script.js"></script>
+
 </body>
 </html>
