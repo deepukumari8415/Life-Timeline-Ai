@@ -105,4 +105,4 @@ ${getMotivation(goal, stream, branch)}`;
   resultBox.innerText = result;
   resultBox.style.display = 'block';
 }
-});
+});//<--
