@@ -1,112 +1,395 @@
-function generateTimeline(){
-  alert("Button Clicked!"); // <-- YE LINE
-  let dob = document.getElementById('dob').value;
-  ...
-document.addEventListener('DOMContentLoaded', function() {
+/* =========================
+   GOOGLE FONT
+========================= */
 
-document.getElementById('goal').addEventListener('change', function(){
-  let val = this.value;
-  document.getElementById('streamBox').classList.add('hidden');
-  document.getElementById('branchBox').classList.add('hidden');
-  document.getElementById('yearBox').classList.add('hidden');
-  document.getElementById('diplomaTypeBox').classList.add('hidden');
-
-  if(val == '11th' || val == '12th'){
-    document.getElementById('streamBox').classList.remove('hidden');
-  }
-  if(val == 'diploma'){
-    document.getElementById('diplomaTypeBox').classList.remove('hidden');
-    document.getElementById('branchBox').classList.remove('hidden');
-    document.getElementById('yearBox').classList.remove('hidden');
-  }
-  if(val == 'btech' || val == 'bba' || val == 'bca' || val == 'ba' || val == 'bsc' || val == 'bcom'){
-    document.getElementById('branchBox').classList.remove('hidden');
-    document.getElementById('yearBox').classList.remove('hidden');
-  }
-});
-
-function getMotivation(goal, stream, branch){
-  let quotes = {
-    science: "🚀 'Science is the future. Crack JEE/NEET and build technologies that change the world!'",
-    arts: "🎨 'Arts shape society. Become a leader, lawyer, or storyteller who inspires millions!'",
-    commerce: "💰 'Commerce is about building empires. Master finance and become unstoppable!'",
-    cs: "💻 'Code today, Lead tomorrow. Tech companies are waiting for innovators like you!'",
-    me: "⚙️ 'Mechanical engineers build the world. From cars to rockets, you can create anything!'",
-    ce: "🏗️ 'Civil engineers shape cities. Build infrastructure that lasts for generations!'",
-    ee: "⚡ 'Electrical engineers power the future. Innovate in energy, robotics and AI!'",
-    it: "🌐 'IT is the backbone of digital world. Build apps and systems that millions use!'",
-    management: "📈 'Leaders are made, not born. Master business and lead teams to success!'",
-    accounts: "📊 'Money makes the world go round. Master accounts and become financially smart!'",
-    default: "✨ 'Work hard now, shine forever. Your 5 years of focus = Lifetime of success!'"
-  };
-  return quotes[stream] || quotes[branch] || quotes.default;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
 }
 
-function generateTimeline(){
-  let dob = document.getElementById('dob').value;
-  let goal = document.getElementById('goal').value;
-  let stream = document.getElementById('stream')?.value;
-  let branch = document.getElementById('branch')?.value;
-  let diplomaType = document.getElementById('diplomaType')?.value;
-  let currentYear = parseInt(document.getElementById('currentYear')?.value) || 0;
-  let resultBox = document.getElementById('resultBox');
-  let currentYr = new Date().getFullYear();
-
-  if(!dob ||!goal){
-    alert("Please enter DOB and Goal first!");
-    return;
-  }
-
-  let birthYear = new Date(dob).getFullYear();
-  let age = currentYr - birthYear;
-  let result = "";
-
-  let duration = {
-    diploma: diplomaType == 'after12'? 2 : 3,
-    btech: 4, bba: 3, bca: 3, ba: 3, bsc: 3, bcom: 3
-  };
-
-  if(goal == '10th'){
-    result = `👤 Age: ${age} years
-✨ Current Status: 10th Standard
-👉 Next Step: Choose Science, Arts, or Commerce
-🔥 MOTIVATION: "The decision you take after 10th will define your career. Choose with passion!"`;
-  }
-  else if(goal == '11th' || goal == '12th'){
-    let passYear = currentYr + (12 - parseInt(goal));
-    result = `👤 Age: ${age} years
-🚀 Current: ${goal} - ${stream.toUpperCase()} Stream
-👉 12th Completion Year: ${passYear}
-👉 Career Paths: ${stream=='science'?'Doctor, Engineer, Pilot, Researcher': stream=='arts'?'UPSC, Law, Journalism, Psychology':'CA, BBA, Banking, Marketing'}
-👉 ACTION PLAN:
-   1. Study 3 hours daily with consistency
-   2. Take mock tests and analyze mistakes
-   3. Build skills related to your stream
-${getMotivation(goal, stream, branch)}`;
-  }
-  else {
-    let totalYears = duration[goal];
-    if(currentYear < 1 || currentYear > totalYears){
-      alert(`Please enter year between 1 to ${totalYears}`);
-      return;
-    }
-    let yearsLeft = totalYears - currentYear;
-    let passYear = currentYr + yearsLeft;
-    let gradAge = age + yearsLeft;
-    let diplomaInfo = goal=='diploma'? ` [${totalYears} Years Course]` : '';
-
-    result = `👤 Age: ${age} years
-🎓 Current: ${goal.toUpperCase()}${diplomaInfo} - ${branch.toUpperCase()}
-👉 Year: ${currentYear} | Graduation: ${passYear} | Age at Graduation: ${gradAge}
-👉 ACTION PLAN:
-   1. Do internships every summer break
-   2. Build 2-3 strong projects in ${branch}
-   3. Start placement prep from 3rd year
-   4. Learn skills: Communication + Technical + Tools
-${getMotivation(goal, stream, branch)}`;
-  }
-
-  resultBox.innerText = result;
-  resultBox.style.display = 'block';
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+    overflow-x:hidden;
+    background:linear-gradient(-45deg,#0f172a,#1e3a8a,#2563eb,#06b6d4);
+    background-size:400% 400%;
+    animation:bgMove 12s ease infinite;
 }
-});
+
+/* Animated Background */
+
+@keyframes bgMove{
+
+0%{
+background-position:0% 50%;
+}
+
+50%{
+background-position:100% 50%;
+}
+
+100%{
+background-position:0% 50%;
+}
+
+}
+
+/* Floating Background */
+
+.background{
+position:fixed;
+width:100%;
+height:100%;
+left:0;
+top:0;
+z-index:-1;
+overflow:hidden;
+}
+
+.background::before,
+.background::after{
+
+content:"";
+
+position:absolute;
+
+width:350px;
+height:350px;
+
+border-radius:50%;
+
+filter:blur(120px);
+
+opacity:.45;
+
+}
+
+.background::before{
+
+background:#00e5ff;
+
+top:-100px;
+
+left:-80px;
+
+}
+
+.background::after{
+
+background:#7c3aed;
+
+bottom:-100px;
+
+right:-80px;
+
+}
+
+/* Main Card */
+
+.container{
+
+width:100%;
+max-width:700px;
+
+background:rgba(255,255,255,.12);
+
+backdrop-filter:blur(18px);
+
+border:1px solid rgba(255,255,255,.18);
+
+border-radius:25px;
+
+padding:35px;
+
+box-shadow:0 15px 40px rgba(0,0,0,.25);
+
+animation:cardUp 1s ease;
+
+}
+
+@keyframes cardUp{
+
+from{
+
+opacity:0;
+
+transform:translateY(50px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+h1{
+
+text-align:center;
+
+color:#fff;
+
+font-size:34px;
+
+margin-bottom:10px;
+
+}
+
+.subtitle{
+
+text-align:center;
+
+color:#f1f5f9;
+
+margin-bottom:30px;
+
+font-size:15px;
+
+letter-spacing:.5px;
+
+}
+
+/* Labels */
+
+label{
+
+display:block;
+
+margin-top:18px;
+
+margin-bottom:8px;
+
+color:#fff;
+
+font-weight:600;
+
+font-size:15px;
+
+}
+
+/* Inputs */
+
+input,
+select{
+
+width:100%;
+
+padding:14px;
+
+border:none;
+
+outline:none;
+
+border-radius:12px;
+
+background:rgba(255,255,255,.18);
+
+color:white;
+
+font-size:15px;
+
+transition:.3s;
+
+}
+
+input::placeholder{
+
+color:#ddd;
+
+}
+
+input:focus,
+select:focus{
+
+background:rgba(255,255,255,.25);
+
+transform:scale(1.02);
+
+}
+
+.hidden{
+
+display:none;
+
+}
+/* =========================
+   BUTTON
+========================= */
+
+button{
+    width:100%;
+    margin-top:30px;
+    padding:16px;
+    border:none;
+    border-radius:14px;
+    font-size:17px;
+    font-weight:600;
+    cursor:pointer;
+    color:#fff;
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    transition:0.3s;
+    box-shadow:0 10px 25px rgba(0,0,0,0.25);
+}
+
+button:hover{
+    transform:translateY(-3px) scale(1.02);
+    box-shadow:0 18px 35px rgba(0,0,0,0.35);
+}
+
+button:active{
+    transform:scale(0.98);
+}
+
+/* =========================
+   RESULT BOX
+========================= */
+
+#resultBox{
+    display:none;
+    margin-top:30px;
+    padding:22px;
+    border-radius:18px;
+    background:rgba(255,255,255,0.15);
+    border:1px solid rgba(255,255,255,0.2);
+    color:#fff;
+    font-size:15px;
+    line-height:1.8;
+    white-space:pre-line;
+    animation:fadeIn 0.7s ease;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* =========================
+   ANIMATION
+========================= */
+
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:translateY(25px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#6d28d9;
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-track{
+    background:#0f172a;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:768px){
+
+.container{
+
+padding:25px;
+
+}
+
+h1{
+
+font-size:28px;
+
+}
+
+.subtitle{
+
+font-size:14px;
+
+}
+
+label{
+
+font-size:14px;
+
+}
+
+input,
+select{
+
+font-size:14px;
+
+padding:12px;
+
+}
+
+button{
+
+font-size:15px;
+
+padding:14px;
+
+}
+
+#resultBox{
+
+font-size:14px;
+
+padding:18px;
+
+}
+
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media(max-width:480px){
+
+body{
+
+padding:15px;
+
+}
+
+.container{
+
+padding:18px;
+
+border-radius:18px;
+
+}
+
+h1{
+
+font-size:24px;
+
+}
+
+.subtitle{
+
+font-size:13px;
+
+}
+
+}
