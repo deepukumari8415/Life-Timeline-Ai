@@ -1,131 +1,395 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+/* =========================
+   GOOGLE FONT
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
 }
 
-body {
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+    overflow-x:hidden;
+    background:linear-gradient(-45deg,#0f172a,#1e3a8a,#2563eb,#06b6d4);
+    background-size:400% 400%;
+    animation:bgMove 12s ease infinite;
 }
 
-.container {
-  background: white;
-  padding: 30px;
-  border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-  max-width: 500px;
-  width: 100%;
-  animation: fadeIn 0.5s ease;
+/* Animated Background */
+
+@keyframes bgMove{
+
+0%{
+background-position:0% 50%;
 }
 
-h1 {
-  text-align: center;
-  color: #667eea;
-  margin-bottom: 25px;
+50%{
+background-position:100% 50%;
 }
 
-label {
-  display: block;
-  margin-top: 15px;
-  margin-bottom: 5px;
-  font-weight: 600;
-  color: #333;
+100%{
+background-position:0% 50%;
 }
 
-input, select {
-  width: 100%;
-  padding: 12px;
-  border: 2px solid #ddd;
-  border-radius: 10px;
-  font-size: 15px;
-  outline: none;
-  transition: 0.3s;
 }
 
-input:focus, select:focus {
-  border-color: #667eea;
+/* Floating Background */
+
+.background{
+position:fixed;
+width:100%;
+height:100%;
+left:0;
+top:0;
+z-index:-1;
+overflow:hidden;
 }
 
-button {
-  width: 100%;
-  padding: 14px;
-  margin-top: 20px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s;
+.background::before,
+.background::after{
+
+content:"";
+
+position:absolute;
+
+width:350px;
+height:350px;
+
+border-radius:50%;
+
+filter:blur(120px);
+
+opacity:.45;
+
 }
 
-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 20px rgba(102,126,234,0.4);
+.background::before{
+
+background:#00e5ff;
+
+top:-100px;
+
+left:-80px;
+
 }
 
-#resultBox {
-  margin-top: 20px;
-  padding: 20px;
-  background: #f8f9ff;
-  border-radius: 10px;
-  border-left: 4px solid #667eea;
-  white-space: pre-line;
-  display: none;
-  line-height: 1.8;
+.background::after{
+
+background:#7c3aed;
+
+bottom:-100px;
+
+right:-80px;
+
 }
 
-.hidden {
-  display: none;
+/* Main Card */
+
+.container{
+
+width:100%;
+max-width:700px;
+
+background:rgba(255,255,255,.12);
+
+backdrop-filter:blur(18px);
+
+border:1px solid rgba(255,255,255,.18);
+
+border-radius:25px;
+
+padding:35px;
+
+box-shadow:0 15px 40px rgba(0,0,0,.25);
+
+animation:cardUp 1s ease;
+
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes cardUp{
+
+from{
+
+opacity:0;
+
+transform:translateY(50px);
+
 }
 
-/* INTRO ANIMATION CSS */
-.intro-screen {
- .intro-screen {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: linear-gradient(135deg, #0f0c29, #302b63);
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  pointer-events: none; /* <-- YE WALI LINE ADD KARO */
-  animation: fadeOut 1s ease 4s forwards;
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
 }
-.intro-boy {
-  width: 180px;
-  animation: walkAndPose 3s ease forwards;
+
 }
-.intro-text {
-  color: white;
-  font-family: 'Poppins';
-  margin-top: 20px;
-  font-size: 22px;
-  opacity: 0;
-  animation: showText 1s ease 2.5s forwards;
+
+h1{
+
+text-align:center;
+
+color:#fff;
+
+font-size:34px;
+
+margin-bottom:10px;
+
 }
-@keyframes walkAndPose {
- 0% { transform: translateX(-400px); }
- 60% { transform: translateX(0) scale(1.1); }
- 100% { transform: translateX(0) scale(1); }
+
+.subtitle{
+
+text-align:center;
+
+color:#f1f5f9;
+
+margin-bottom:30px;
+
+font-size:15px;
+
+letter-spacing:.5px;
+
 }
-@keyframes showText {
-  to { opacity: 1; }
+
+/* Labels */
+
+label{
+
+display:block;
+
+margin-top:18px;
+
+margin-bottom:8px;
+
+color:#fff;
+
+font-weight:600;
+
+font-size:15px;
+
 }
-@keyframes fadeOut {
-  to { opacity: 0; visibility: hidden; }
+
+/* Inputs */
+
+input,
+select{
+
+width:100%;
+
+padding:14px;
+
+border:none;
+
+outline:none;
+
+border-radius:12px;
+
+background:rgba(255,255,255,.18);
+
+color:white;
+
+font-size:15px;
+
+transition:.3s;
+
+}
+
+input::placeholder{
+
+color:#ddd;
+
+}
+
+input:focus,
+select:focus{
+
+background:rgba(255,255,255,.25);
+
+transform:scale(1.02);
+
+}
+
+.hidden{
+
+display:none;
+
+}
+/* =========================
+   BUTTON
+========================= */
+
+button{
+    width:100%;
+    margin-top:30px;
+    padding:16px;
+    border:none;
+    border-radius:14px;
+    font-size:17px;
+    font-weight:600;
+    cursor:pointer;
+    color:#fff;
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    transition:0.3s;
+    box-shadow:0 10px 25px rgba(0,0,0,0.25);
+}
+
+button:hover{
+    transform:translateY(-3px) scale(1.02);
+    box-shadow:0 18px 35px rgba(0,0,0,0.35);
+}
+
+button:active{
+    transform:scale(0.98);
+}
+
+/* =========================
+   RESULT BOX
+========================= */
+
+#resultBox{
+    display:none;
+    margin-top:30px;
+    padding:22px;
+    border-radius:18px;
+    background:rgba(255,255,255,0.15);
+    border:1px solid rgba(255,255,255,0.2);
+    color:#fff;
+    font-size:15px;
+    line-height:1.8;
+    white-space:pre-line;
+    animation:fadeIn 0.7s ease;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* =========================
+   ANIMATION
+========================= */
+
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:translateY(25px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#6d28d9;
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-track{
+    background:#0f172a;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:768px){
+
+.container{
+
+padding:25px;
+
+}
+
+h1{
+
+font-size:28px;
+
+}
+
+.subtitle{
+
+font-size:14px;
+
+}
+
+label{
+
+font-size:14px;
+
+}
+
+input,
+select{
+
+font-size:14px;
+
+padding:12px;
+
+}
+
+button{
+
+font-size:15px;
+
+padding:14px;
+
+}
+
+#resultBox{
+
+font-size:14px;
+
+padding:18px;
+
+}
+
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media(max-width:480px){
+
+body{
+
+padding:15px;
+
+}
+
+.container{
+
+padding:18px;
+
+border-radius:18px;
+
+}
+
+h1{
+
+font-size:24px;
+
+}
+
+.subtitle{
+
+font-size:13px;
+
+}
+
 }
