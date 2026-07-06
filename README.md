@@ -2,7 +2,7 @@
 An AI-assisted web application built for the PromptWars X Global Prompt Challenge.
 
 ## 🚀 Live Demo
-life-timeline-ai.vercel.app
+https://life-timeline-ai.vercel.app
 
 ## 🛠️ Tech Stack
 - HTML
